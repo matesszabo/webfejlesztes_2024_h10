@@ -3,6 +3,7 @@ package hu.unideb.inf.webshop.data.entities;
 import jakarta.persistence.*;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -18,6 +19,13 @@ public class RendelesEntity {
     private Boolean fizetve;
     @Column(name = "allapot")
     private String allapot;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "ruharendelesek",
+            joinColumns = {@JoinColumn(name = "rendeles_id")} ,
+            inverseJoinColumns = {@JoinColumn(name = "ruha_id")}
+    )
+    private List<RuhaEntity> ruhaEntities;
 
     public RendelesEntity() {
     }
