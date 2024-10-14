@@ -27,6 +27,10 @@ public class RendelesEntity {
     )
     private List<RuhaEntity> ruhaEntities;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "felhasznalo_azon", referencedColumnName = "id")
+    private Felhasznalo felhasznalo;
+
     public RendelesEntity() {
     }
 
