@@ -7,6 +7,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController //json-t vár, json-t küld
 @RequestMapping("/api")
 public class RuhaController {
@@ -39,6 +43,29 @@ public class RuhaController {
     @DeleteMapping("/deleteruha")
     public void deleteRuha(@RequestParam Long id){
         repository.deleteById(id);
+    }
+
+    @GetMapping("/allRuha")
+    public List<RuhaEntity> getAllRuha(){
+        return repository.findAll();
+    }
+
+    // /ruha/M
+    @GetMapping("/ruha/{meret}")
+    public List<RuhaEntity> getRuhaByMeret(@PathVariable String meret){
+        List<RuhaEntity> meretValogatott = new ArrayList<>();
+        meretValogatott = repository.findAll()
+                .stream()
+                .filter(x -> x.getMeret().equals(meret))
+                .toList();
+
+        return meretValogatott;
+    }
+
+    // /ruha?meret=M
+    @GetMapping("/ruha")
+    public List<RuhaEntity> getRuhaByMeretDb(@RequestParam String meret){
+        return repository.findAllByMeret(meret);
     }
 }
 
