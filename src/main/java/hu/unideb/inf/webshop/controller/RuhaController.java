@@ -28,6 +28,18 @@ public class RuhaController {
     public RuhaEntity saveRuha(@RequestBody RuhaEntity entity){
         return repository.save(entity);
     }
+
+    //entity rendelkezik ID-val, akkor update, amúgy save
+    @PutMapping("/updateruha")
+    public RuhaEntity updateRuha(@RequestBody RuhaEntity entity){
+        return repository.save(entity);
+    }
+
+    // /api/deleteruha?id=x
+    @DeleteMapping("/deleteruha")
+    public void deleteRuha(@RequestParam Long id){
+        repository.deleteById(id);
+    }
 }
 
 
