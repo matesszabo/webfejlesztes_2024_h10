@@ -67,6 +67,20 @@ public class RuhaController {
     public List<RuhaEntity> getRuhaByMeretDb(@RequestParam String meret){
         return repository.findAllByMeret(meret);
     }
+
+    @GetMapping("/filteredruha")
+    public List<RuhaEntity> getFilteredRuha(@RequestParam(required = false) String nev,
+                                            @RequestParam(required = false) String meret,
+                                            @RequestParam(required = false) String szin,
+                                            @RequestParam(required = false) String tipus){
+        return repository.findAll().stream()
+                .filter(x -> nev == null || x.getNev().equals(nev))
+                .filter(x -> meret == null || x.getMeret().equals(meret))
+                .filter(x -> szin == null || x.getSzin().equals(szin))
+                .filter(x -> tipus == null || x.getTipus().equals(tipus))
+                .toList();
+
+    }
 }
 
 
