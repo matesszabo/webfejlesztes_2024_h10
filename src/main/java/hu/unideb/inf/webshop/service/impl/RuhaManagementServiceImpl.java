@@ -5,9 +5,11 @@ import hu.unideb.inf.webshop.data.repositories.RuhaRepository;
 import hu.unideb.inf.webshop.service.RuhaManagementService;
 import hu.unideb.inf.webshop.service.dto.RuhaDto;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -32,7 +34,11 @@ public class RuhaManagementServiceImpl implements RuhaManagementService {
 
     @Override
     public List<RuhaDto> findAll() {
-        return List.of();
+        List<RuhaEntity> list = repo.findAll();
+        List<RuhaDto> dtos = new ArrayList<>();
+
+        dtos = modelMapper.map(list, new TypeToken<List<RuhaDto>>(){}.getType());
+        return dtos;
     }
 
     @Override
