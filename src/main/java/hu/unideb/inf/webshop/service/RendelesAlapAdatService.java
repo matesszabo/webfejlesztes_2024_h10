@@ -9,5 +9,5 @@ public interface RendelesAlapAdatService {
     RendelesDto getById(Long id);
     List<RendelesDto> getAll();
     void deleteById(Long id);
-    
+
 }
