@@ -64,4 +64,25 @@ public class RuhaManagementServiceImpl implements RuhaManagementService {
     public RuhaDto update(RuhaDto dto) {
         return null;
     }
+
+    @Override
+    public List<RuhaDto> ruhaByMeretKod(String meret) {
+        List<RuhaEntity> meretValogatott = new ArrayList<>();
+        meretValogatott = repo.findAll()
+                .stream()
+                .filter(x -> x.getMeret().equals(meret))
+                .toList();
+
+        return modelMapper.map(meretValogatott, new TypeToken<List<RuhaDto>>(){}.getType());
+    }
+
+    @Override
+    public List<RuhaDto> ruhaByMeretDb(String meret) {
+        return List.of();
+    }
+
+    @Override
+    public List<RuhaDto> ruhaByParams(String nev, String meret, String szin, String tipus) {
+        return List.of();
+    }
 }

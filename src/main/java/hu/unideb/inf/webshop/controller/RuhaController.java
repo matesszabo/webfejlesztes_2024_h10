@@ -55,13 +55,7 @@ public class RuhaController {
     // /ruha/M
     @GetMapping("/ruha/{meret}")
     public List<RuhaDto> getRuhaByMeret(@PathVariable String meret){
-        List<RuhaDto> meretValogatott = new ArrayList<>();
-        meretValogatott = repository.findAll()
-                .stream()
-                .filter(x -> x.getMeret().equals(meret))
-                .toList();
 
-        return meretValogatott;
     }
 
     // /ruha?meret=M
