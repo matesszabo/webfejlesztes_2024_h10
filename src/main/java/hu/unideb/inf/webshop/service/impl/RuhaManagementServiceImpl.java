@@ -4,6 +4,7 @@ import hu.unideb.inf.webshop.data.entities.RuhaEntity;
 import hu.unideb.inf.webshop.data.repositories.RuhaRepository;
 import hu.unideb.inf.webshop.service.RuhaManagementService;
 import hu.unideb.inf.webshop.service.dto.RuhaDto;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,9 +15,19 @@ public class RuhaManagementServiceImpl implements RuhaManagementService {
     @Autowired
     RuhaRepository repo;
 
+    @Autowired
+    ModelMapper modelMapper;
+
     @Override
     public RuhaDto save(RuhaDto dto) {
-        return null;
+        /*return modelMapper.map(
+                repo.save(modelMapper.map(dto, RuhaEntity.class))
+                ,RuhaDto.class);
+        */
+        RuhaEntity ruhaEntity = modelMapper.map(dto, RuhaEntity.class);
+        ruhaEntity = repo.save(ruhaEntity);
+
+        return modelMapper.map(ruhaEntity, RuhaDto.class);
     }
 
     @Override
