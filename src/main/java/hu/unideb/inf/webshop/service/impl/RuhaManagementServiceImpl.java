@@ -1,5 +1,6 @@
 package hu.unideb.inf.webshop.service.impl;
 
+import hu.unideb.inf.webshop.data.entities.RuhaEntity;
 import hu.unideb.inf.webshop.data.repositories.RuhaRepository;
 import hu.unideb.inf.webshop.service.RuhaManagementService;
 import hu.unideb.inf.webshop.service.dto.RuhaDto;
@@ -25,7 +26,16 @@ public class RuhaManagementServiceImpl implements RuhaManagementService {
 
     @Override
     public RuhaDto findById(Long id) {
-        return null;
+        RuhaEntity entity = repo.findById(id).orElse(null);
+        RuhaDto dto = new RuhaDto();
+
+        dto.setId(entity.getId());
+        dto.setNev(entity.getNev());
+        dto.setMeret(entity.getMeret());
+        dto.setSzin(entity.getSzin());
+        dto.setTipus(entity.getTipus());
+
+        return dto;
     }
 
     @Override
