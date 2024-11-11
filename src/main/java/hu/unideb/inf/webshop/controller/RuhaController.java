@@ -55,13 +55,13 @@ public class RuhaController {
     // /ruha/M
     @GetMapping("/ruha/{meret}")
     public List<RuhaDto> getRuhaByMeret(@PathVariable String meret){
-
+        return service.ruhaByMeretKod(meret);
     }
 
     // /ruha?meret=M
     @GetMapping("/ruha")
     public List<RuhaDto> getRuhaByMeretDb(@RequestParam String meret){
-        return repository.findAllByMeret(meret);
+        return service.ruhaByMeretDb(meret);
     }
 
     @GetMapping("/filteredruha")
@@ -69,12 +69,7 @@ public class RuhaController {
                                             @RequestParam(required = false) String meret,
                                             @RequestParam(required = false) String szin,
                                             @RequestParam(required = false) String tipus){
-        return repository.findAll().stream()
-                .filter(x -> nev == null || x.getNev().equals(nev))
-                .filter(x -> meret == null || x.getMeret().equals(meret))
-                .filter(x -> szin == null || x.getSzin().equals(szin))
-                .filter(x -> tipus == null || x.getTipus().equals(tipus))
-                .toList();
+        return service.ruhaByParams(nev,meret,szin,tipus);
 
     }
 }

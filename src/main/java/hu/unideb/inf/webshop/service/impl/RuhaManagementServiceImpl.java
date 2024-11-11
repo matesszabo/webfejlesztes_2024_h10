@@ -78,11 +78,19 @@ public class RuhaManagementServiceImpl implements RuhaManagementService {
 
     @Override
     public List<RuhaDto> ruhaByMeretDb(String meret) {
-        return List.of();
+        return modelMapper.map(repo.findAllByMeret(meret), new TypeToken<List<RuhaDto>>(){}.getType());
     }
 
     @Override
     public List<RuhaDto> ruhaByParams(String nev, String meret, String szin, String tipus) {
-        return List.of();
+
+        List<RuhaEntity> entities = repo.findAll().stream()
+                .filter(x -> nev == null || x.getNev().equals(nev))
+                .filter(x -> meret == null || x.getMeret().equals(meret))
+                .filter(x -> szin == null || x.getSzin().equals(szin))
+                .filter(x -> tipus == null || x.getTipus().equals(tipus))
+                .toList();
+
+        return modelMapper.map(entities, new TypeToken<List<RuhaDto>>(){}.getType());
     }
 }
