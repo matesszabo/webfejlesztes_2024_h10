@@ -16,7 +16,7 @@ public class Felhasznalo implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
     @Column(name = "nev")
     private String nev;
     @Column(name = "szuletesi_datum")
