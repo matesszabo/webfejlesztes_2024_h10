@@ -6,7 +6,7 @@ import org.springframework.security.core.Authentication;
 
 public interface AuthenticationService {
 
-    public FelhasznaloDto regisztracio(FelhasznaloDto felhasznalo);
+    public String regisztracio(FelhasznaloDto felhasznalo);
     //felhasználónév és jelszó is elég lenne
-    public Authentication bejelentkezes(FelhasznaloDto felhasznalo);
+    public String bejelentkezes(FelhasznaloDto felhasznalo);
 }

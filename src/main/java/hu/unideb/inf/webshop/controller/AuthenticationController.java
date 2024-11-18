@@ -15,12 +15,12 @@ public class AuthenticationController {
     AuthenticationService authenticationService;
 
     @PostMapping("/regisztracio")
-    public FelhasznaloDto regisztracio(@RequestBody FelhasznaloDto felhasznalo) {
+    public String regisztracio(@RequestBody FelhasznaloDto felhasznalo) {
         return authenticationService.regisztracio(felhasznalo);
     }
 
     @PostMapping("/bejelentkezes")
-    public void bejelentkezes(@RequestBody FelhasznaloDto felhasznaloDto){
-        authenticationService.bejelentkezes(felhasznaloDto);
+    public String bejelentkezes(@RequestBody FelhasznaloDto felhasznaloDto){
+        return authenticationService.bejelentkezes(felhasznaloDto);
     }
 }
