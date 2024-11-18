@@ -29,7 +29,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         felhasznalo.setJelszo(passwordEncoder.encode(felhasznalo.getJelszo()));
 
         Felhasznalo entity = new Felhasznalo();
-        entity.setId(felhasznalo.getId());
+        //entity.setId(felhasznalo.getId());
         entity.setJelszo(felhasznalo.getJelszo());
         entity.setEmail(felhasznalo.getEmail());
         entity.setCim(felhasznalo.getCim());
