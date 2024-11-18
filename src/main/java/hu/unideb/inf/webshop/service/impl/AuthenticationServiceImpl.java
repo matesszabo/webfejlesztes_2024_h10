@@ -5,6 +5,7 @@ import hu.unideb.inf.webshop.data.entities.Jogosultsag;
 import hu.unideb.inf.webshop.data.repositories.FelhasznaloRepository;
 import hu.unideb.inf.webshop.service.AuthenticationService;
 import hu.unideb.inf.webshop.service.JwtService;
+import hu.unideb.inf.webshop.service.dto.BejelentkezesDto;
 import hu.unideb.inf.webshop.service.dto.FelhasznaloDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,12 +55,12 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
     @Override
-    public String bejelentkezes(FelhasznaloDto felhasznalo) {
+    public String bejelentkezes(BejelentkezesDto bejelentkezesDto) {
         authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(felhasznalo.getEmail(),
-                        felhasznalo.getJelszo())
+                new UsernamePasswordAuthenticationToken(bejelentkezesDto.getEmail(),
+                        bejelentkezesDto.getJelszo())
         );
-        var user = felhasznaloRepository.findByEmail(felhasznalo.getEmail());
+        var user = felhasznaloRepository.findByEmail(bejelentkezesDto.getEmail());
         return jwtService.generateToken(user); //token
     }
 }

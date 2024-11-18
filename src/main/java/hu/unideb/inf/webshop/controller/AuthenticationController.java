@@ -1,6 +1,7 @@
 package hu.unideb.inf.webshop.controller;
 
 import hu.unideb.inf.webshop.service.AuthenticationService;
+import hu.unideb.inf.webshop.service.dto.BejelentkezesDto;
 import hu.unideb.inf.webshop.service.dto.FelhasznaloDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,7 +21,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/bejelentkezes")
-    public String bejelentkezes(@RequestBody FelhasznaloDto felhasznaloDto){
-        return authenticationService.bejelentkezes(felhasznaloDto);
+    public String bejelentkezes(@RequestBody BejelentkezesDto bejelentkezesDto){
+        return authenticationService.bejelentkezes(bejelentkezesDto);
     }
 }
