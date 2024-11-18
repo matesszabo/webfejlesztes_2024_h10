@@ -1,6 +1,7 @@
 package hu.unideb.inf.webshop.service.impl;
 
 import hu.unideb.inf.webshop.data.entities.Felhasznalo;
+import hu.unideb.inf.webshop.data.entities.Jogosultsag;
 import hu.unideb.inf.webshop.data.repositories.FelhasznaloRepository;
 import hu.unideb.inf.webshop.service.AuthenticationService;
 import hu.unideb.inf.webshop.service.JwtService;
@@ -41,8 +42,11 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         entity.setNem(felhasznalo.getNem());
         entity.setSzuldate(felhasznalo.getSzuldate());
         entity.setTelefon(felhasznalo.getTelefon());
+        entity.setJogosultsag(Jogosultsag.USER);
 
-        return jwtService.generateToken((UserDetails) felhasznalo);
+        entity = felhasznaloRepository.save(entity);
+
+        return jwtService.generateToken(entity);
 
         //return modelMapper.map(felhasznaloRepository.save(entity), FelhasznaloDto.class);
 

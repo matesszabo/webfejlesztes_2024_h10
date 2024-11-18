@@ -35,6 +35,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         final String userEmail;
         //authorization header nem üres és bearer sémát használ
         if(StringUtils.isEmpty(authHeader) || !StringUtils.startsWith(authHeader,"Bearer ")){
+            filterChain.doFilter(request, response);
             return ;
         }
         jwt = authHeader.substring(7);

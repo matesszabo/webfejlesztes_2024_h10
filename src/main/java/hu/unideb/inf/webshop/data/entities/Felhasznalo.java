@@ -114,6 +114,18 @@ public class Felhasznalo implements UserDetails {
         this.jelszo = jelszo;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Jogosultsag getJogosultsag() {
+        return jogosultsag;
+    }
+
+    public void setJogosultsag(Jogosultsag jogosultsag) {
+        this.jogosultsag = jogosultsag;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -8,6 +8,7 @@ import io.jsonwebtoken.security.Keys;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import javax.crypto.SecretKey;
 import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
@@ -24,14 +25,12 @@ public class JwtServiceImpl implements JwtService {
     @Override
     public String generateToken(UserDetails userDetails) {//UserDetails, Map<String, Object>
         Map<String, Object> extraClaims = new HashMap<>();//public/private claimek
-
-        byte[] keyBytes = Decoders.BASE64.decode("secret");
-        Key k = Keys.hmacShaKeyFor(keyBytes);
+        userDetails.getAuthorities().forEach(authority -> extraClaims.put(authority.getAuthority(), authority));
 
         return Jwts.builder().claims(extraClaims).subject(userDetails.getUsername())
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis()+300000))
-                .signWith(k)
+                .signWith(getKey())
                 .compact();
     }
 
@@ -46,13 +45,23 @@ public class JwtServiceImpl implements JwtService {
     }
 
     private <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
-        final Claims claims = Jwts.parser().setSigningKey("secret")
+        /*final Claims claims = Jwts.parser().setSigningKey("secret")
                 .build()
                 .parseClaimsJws(token)
-                .getPayload();
+                .getPayload();*/
 
         //claims.getSubject() -- csak felhasználónév kinyerése
+        final Claims claims = Jwts.parser()
+                .verifyWith(getKey())
+                .build()
+                .parseSignedClaims(token)
+                .getPayload();
 
         return claimsResolver.apply(claims);
+    }
+
+    private SecretKey getKey(){
+        byte[] keyBytes = Decoders.BASE64.decode("secret12345678345678r49845ru8i9zhui45rzt6ui");
+        return Keys.hmacShaKeyFor(keyBytes);
     }
 }
