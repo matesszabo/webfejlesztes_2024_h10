@@ -4,16 +4,21 @@ import hu.unideb.inf.webshop.service.AuthenticationService;
 import hu.unideb.inf.webshop.service.dto.BejelentkezesDto;
 import hu.unideb.inf.webshop.service.dto.FelhasznaloDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+//@CrossOrigin(origins = "http://localhost:4200")
 
 @RestController
 @RequestMapping("/auth")
 public class AuthenticationController {
     @Autowired
     AuthenticationService authenticationService;
+
+    @RequestMapping(value = "/**", method = RequestMethod.OPTIONS)
+    public ResponseEntity<Void> handleOptions() {
+        return ResponseEntity.ok().build();
+    }
 
     @PostMapping("/regisztracio")
     public String regisztracio(@RequestBody FelhasznaloDto felhasznalo) {

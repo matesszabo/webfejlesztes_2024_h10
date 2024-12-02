@@ -13,12 +13,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+//@CrossOrigin(origins = "http://localhost:4200")
 @RestController //json-t vár, json-t küld
 @RequestMapping("/api")
 public class RuhaController {
 
     @Autowired
     RuhaManagementService service;
+
+    @RequestMapping(value = "/**", method = RequestMethod.OPTIONS)
+    public ResponseEntity<Void> handleOptions() {
+        return ResponseEntity.ok().build();
+    }
 
     @GetMapping("/hw")
     public String hello(){
